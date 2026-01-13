@@ -42,19 +42,19 @@ Your task is to rewrite the following user prompt, incorporating the elements be
 
 **Rewrite the prompt with the following structure:**
 
-**1. Role:**
+### Role
 Assign a clear and specific role to the AI. What persona should it adopt? (e.g., "You are a senior software architect specializing in cloud-native applications.")
 
-**2. Background Knowledge:**
+### Background
 Provide essential context and background information that the AI needs to understand the task fully. (e.g., "Our company is a mid-sized e-commerce business looking to migrate from a monolithic architecture to microservices.")
 
-**3. Detailed Workflow:**
+### Workflow
 Break down the task into a step-by-step workflow using bullet points. Be explicit and thorough.
 - Start with the primary objective.
 - List out each step required to achieve the objective.
 - Specify constraints, requirements, and any formats to follow.
 
-**4. Possible Output:**
+### Output
 Describe the expected output. What should the final result look like? (e.g., "The output should be a JSON object containing a list of recommended microservices, with each service having a name, a description of its responsibility, and a list of potential technologies to use.")
 
 **Rules for Enhancement:**

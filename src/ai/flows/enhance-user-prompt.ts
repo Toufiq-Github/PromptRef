@@ -60,6 +60,7 @@ Describe the expected output. What should the final result look like? (e.g., "Th
 **Rules for Enhancement:**
 - Preserve the user's original intent without introducing new, unsolicited requirements.
 - Correct all grammar, spelling, and punctuation errors.
+- Ensure the "Role", "Background", "Workflow", and "Output" sections are each on a new line.
 - Clarify ambiguities and fill in logical gaps where necessary to create a complete prompt.
 - Do NOT answer the prompt yourself. Your only output is the rewritten, enhanced prompt.
 - Do not include any of your own explanations, notes, or meta-comments in the output.

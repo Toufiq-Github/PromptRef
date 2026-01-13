@@ -7,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { handleEnhancePrompt } from './actions';
+import { cn } from '@/lib/utils';
 
 export default function Home() {
   const [prompt, setPrompt] = useState('');
@@ -114,7 +115,10 @@ export default function Home() {
                   value={isLoading ? 'Generating your enhanced prompt...' : enhancedPrompt}
                   readOnly
                   rows={8}
-                  className="resize-none bg-muted/50"
+                  className={cn(
+                    'resize-none',
+                    !isLoading && 'textarea-output'
+                  )}
                   placeholder="Your enhanced prompt will appear here..."
                 />
                 {!isLoading && enhancedPrompt && (

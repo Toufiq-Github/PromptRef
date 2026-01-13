@@ -114,7 +114,7 @@ export default function Home() {
                 <Textarea
                   value={isLoading ? 'Generating your enhanced prompt...' : enhancedPrompt}
                   readOnly
-                  rows={8}
+                  rows={15}
                   className={cn(
                     'resize-none',
                     !isLoading && 'textarea-output'

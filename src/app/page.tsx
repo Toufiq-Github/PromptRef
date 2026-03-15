@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Copy, Wand2, Loader2, Check, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { handleEnhancePrompt } from './actions';
 import { cn } from '@/lib/utils';
@@ -84,99 +84,98 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen w-full flex-col items-center bg-background p-4 sm:p-8 md:p-12 lg:p-16">
-      <div className="w-full max-w-3xl space-y-8 sm:space-y-12">
-        <header className="flex flex-col items-center text-center space-y-3">
-          <h1 className="text-foreground text-4xl sm:text-6xl font-black tracking-tighter uppercase">
-            PromptRefiner
+      <div className="w-full max-w-3xl space-y-12 sm:space-y-16">
+        <header className="flex flex-col items-center text-center space-y-4">
+          <h1 className="text-foreground text-5xl sm:text-7xl font-black tracking-tighter uppercase">
+            Prompt Refiner
           </h1>
-          <p className="text-sm sm:text-lg text-muted-foreground font-medium max-w-md">
-            Professional engineering for high-performance AI prompts.
+          <p className="text-base sm:text-xl text-primary font-medium tracking-wide">
+            Enhance your thoughts. Refine your intent.
           </p>
         </header>
 
-        <Card className="w-full border-border bg-card shadow-2xl">
-          <CardHeader className="p-5 sm:p-8">
-            <CardTitle className="text-xl sm:text-2xl font-bold text-foreground">Input Prompt</CardTitle>
-            <CardDescription className="text-sm text-muted-foreground">Enter your raw idea or rough draft below.</CardDescription>
+        <Card className="w-full border-primary/20 bg-card shadow-[0_0_50px_-12px_rgba(255,255,255,0.05)] transition-all duration-500">
+          <CardHeader className="p-6 sm:p-10">
+            <CardTitle className="text-2xl sm:text-3xl font-bold text-foreground text-center sm:text-left">Input Prompt</CardTitle>
           </CardHeader>
-          <CardContent className="p-5 sm:p-8 pt-0 sm:pt-0">
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <Textarea
-                placeholder="Example: Write a blog post about the benefits of solar energy..."
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                onKeyDown={handleKeyDown}
-                rows={4}
-                className="resize-none border-border bg-muted/30 focus-visible:ring-primary text-foreground text-base p-4 sm:p-5"
-                disabled={isLoading}
-              />
+          <CardContent className="p-6 sm:p-10 pt-0 sm:pt-0">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="relative group">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg blur opacity-30 group-focus-within:opacity-100 transition duration-500"></div>
+                <Textarea
+                  placeholder=""
+                  value={prompt}
+                  onChange={(e) => setPrompt(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  rows={6}
+                  className="relative resize-none border-primary/20 bg-black/40 focus-visible:ring-primary/40 focus-visible:border-primary text-foreground text-lg p-6 sm:p-8 transition-all duration-300 min-h-[200px]"
+                  disabled={isLoading}
+                />
+              </div>
               <Button 
                 type="submit" 
-                className="w-full h-12 sm:h-14 text-base sm:text-lg font-bold transition-all hover:bg-primary/90 active:scale-[0.98]" 
+                className="w-full h-14 sm:h-16 text-lg sm:text-xl font-black tracking-widest uppercase transition-all hover:bg-primary/90 active:scale-[0.98] shadow-lg" 
                 disabled={isLoading}
               >
                 {isLoading ? (
-                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  <Loader2 className="mr-3 h-6 w-6 animate-spin" />
                 ) : (
-                  <Wand2 className="mr-2 h-5 w-5" />
+                  <Wand2 className="mr-3 h-6 w-6" />
                 )}
-                {isLoading ? 'Processing...' : 'Refine Prompt'}
+                {isLoading ? 'Refining...' : 'Refine'}
               </Button>
             </form>
           </CardContent>
         </Card>
 
         {(isLoading || enhancedPrompt) && (
-          <Card className="w-full animate-in fade-in slide-in-from-bottom-8 duration-700 border-border bg-card shadow-2xl overflow-hidden">
-            <CardHeader className="flex flex-row items-center justify-between p-5 sm:p-8 border-b border-border/50">
-              <div className="space-y-1">
-                <CardTitle className="text-xl sm:text-2xl font-bold text-foreground">Output</CardTitle>
-                <CardDescription className="hidden sm:block text-muted-foreground">Professionally structured result.</CardDescription>
-              </div>
+          <Card className="w-full animate-in fade-in slide-in-from-bottom-12 duration-1000 border-primary/20 bg-card shadow-2xl overflow-hidden">
+            <CardHeader className="flex flex-row items-center justify-between p-6 sm:p-10 border-b border-primary/10">
+              <CardTitle className="text-2xl sm:text-3xl font-bold text-foreground uppercase tracking-tight">Output</CardTitle>
               {!isLoading && enhancedPrompt && (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                   <Button
                     variant="outline"
-                    className="hidden sm:flex border-border hover:bg-accent font-bold text-foreground"
+                    className="hidden sm:flex border-primary/30 hover:bg-primary/10 font-bold text-foreground h-11 px-6"
                     onClick={handleCopy}
                     disabled={isCopied}
                   >
-                    {isCopied ? <Check className="mr-2 h-4 w-4" /> : <Copy className="mr-2 h-4 w-4" />}
+                    {isCopied ? <Check className="mr-2 h-5 w-5" /> : <Copy className="mr-2 h-5 w-5" />}
                     {isCopied ? 'Copied' : 'Copy'}
                   </Button>
                   <Button
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-4"
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground font-black px-6 h-11 uppercase tracking-tighter"
                     onClick={handleOpenChatGPT}
                   >
-                    <ExternalLink className="mr-2 h-4 w-4" />
+                    <ExternalLink className="mr-2 h-5 w-5" />
                     ChatGPT
                   </Button>
                 </div>
               )}
             </CardHeader>
-            <CardContent className="p-0">
-              <div className="relative group">
+            <CardContent className="p-0 bg-black/20">
+              <div className="relative">
                 <Textarea
-                  value={isLoading ? 'Refining logic and applying engineering templates...' : enhancedPrompt}
+                  value={isLoading ? 'Reconstructing your prompt with professional engineering patterns...' : enhancedPrompt}
                   readOnly
-                  rows={14}
+                  rows={16}
                   className={cn(
-                    'w-full border-none bg-transparent text-foreground leading-relaxed font-body text-sm sm:text-base p-6 sm:p-10 focus-visible:ring-0 resize-none',
+                    'w-full border-none bg-transparent text-foreground leading-relaxed font-body text-base sm:text-lg p-8 sm:p-12 focus-visible:ring-0 resize-none min-h-[400px]',
                     !isLoading && 'textarea-output'
                   )}
                 />
               </div>
               
               {!isLoading && enhancedPrompt && (
-                <div className="p-5 sm:hidden bg-muted/30 border-t border-border">
+                <div className="p-6 sm:hidden bg-primary/5 border-t border-primary/10">
                   <Button
                     variant="secondary"
-                    className="w-full font-bold h-12 text-foreground"
+                    className="w-full font-black h-14 text-foreground uppercase tracking-widest"
                     onClick={handleCopy}
                     disabled={isCopied}
                   >
-                    {isCopied ? <Check className="mr-2 h-4 w-4" /> : <Copy className="mr-2 h-4 w-4" />}
-                    {isCopied ? 'Copied to Clipboard' : 'Copy Refined Prompt'}
+                    {isCopied ? <Check className="mr-2 h-5 w-5" /> : <Copy className="mr-2 h-5 w-5" />}
+                    {isCopied ? 'Copied' : 'Copy Result'}
                   </Button>
                 </div>
               )}
@@ -184,12 +183,12 @@ export default function Home() {
           </Card>
         )}
 
-        <footer className="text-center py-12 space-y-2 opacity-40">
-          <p className="text-xs font-bold tracking-widest uppercase text-foreground">
-            PromptRefiner Enterprise v1.1
+        <footer className="text-center py-16 space-y-3 opacity-20 hover:opacity-50 transition-opacity duration-700">
+          <p className="text-xs font-black tracking-[0.3em] uppercase text-foreground">
+            Prompt Refiner v1.2
           </p>
-          <p className="text-[10px] text-foreground">
-            Powered by Genkit & Gemini 2.5 Flash
+          <p className="text-[10px] text-foreground font-medium">
+            Powered by Genkit • Engineered for Intelligence
           </p>
         </footer>
       </div>

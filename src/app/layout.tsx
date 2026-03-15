@@ -12,6 +12,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'Prompt Refiner',
   description: 'Enhance your AI prompts for better results.',
+  icons: {
+    icon: 'https://thumbs.dreamstime.com/b/refine-icon-adjust-302512247.jpg',
+  },
 };
 
 export default function RootLayout({

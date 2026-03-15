@@ -43,29 +43,25 @@ Your task is to rewrite the following user prompt, incorporating the elements be
 **Rewrite the prompt with the following structure:**
 
 ### Role
-Assign a clear and specific role to the AI. What persona should it adopt? (e.g., "You are a senior software architect specializing in cloud-native applications.")
+Assign a clear and specific role to the AI.
 
 ### Background
-Provide essential context and background information that the AI needs to understand the task fully. (e.g., "Our company is a mid-sized e-commerce business looking to migrate from a monolithic architecture to microservices.")
+Provide essential context and background information.
 
 ### Workflow
-Break down the task into a step-by-step workflow using bullet points. Be explicit and thorough.
-- Start with the primary objective.
-- List out each step required to achieve the objective.
-- Specify constraints, requirements, and any formats to follow.
+Break down the task into a step-by-step workflow using bullet points.
+- Step 1...
+- Step 2...
 
 ### Output
-Describe the expected output. What should the final result look like? (e.g., "The output should be a JSON object containing a list of recommended microservices, with each service having a name, a description of its responsibility, and a list of potential technologies to use.")
+Describe the expected output format and style.
 
 **Rules for Enhancement:**
-- Preserve the user's original intent without introducing new, unsolicited requirements.
-- Correct all grammar, spelling, and punctuation errors.
-- Ensure the "Role", "Background", "Workflow", and "Output" sections are each on a new line, preceded by '###' and a space to create a clear heading.
-- Add a blank line between each section.
-- Clarify ambiguities and fill in logical gaps where necessary to create a complete prompt.
-- Do NOT answer the prompt yourself. Your only output is the rewritten, enhanced prompt.
-- Do not include any of your own explanations, notes, or meta-comments in the output.
-- Output ONLY the enhanced prompt in professional, neutral English.`,
+- Every section (Role, Background, Workflow, Output) MUST start on a NEW line.
+- You MUST insert a BLANK LINE between each section.
+- Preserve the user's original intent.
+- Ensure the output is professional and neutral.
+- Do NOT answer the prompt yourself. Output ONLY the rewritten prompt.`,
   config: {
     temperature: 0.3,
   },

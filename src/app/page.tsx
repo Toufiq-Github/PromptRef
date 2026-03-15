@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { Copy, Wand2, Loader2, Check, History, LogOut, User, LogIn } from 'lucide-react';
+import { Copy, Wand2, Loader2, Check, History, LogOut, LogIn } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -10,8 +10,7 @@ import { handleEnhancePrompt } from './actions';
 import { cn } from '@/lib/utils';
 import { useUser, useFirestore, useCollection } from '@/firebase';
 import { collection, addDoc, serverTimestamp, query, orderBy, limit } from 'firebase/firestore';
-import { signOut } from 'firebase/auth';
-import { getAuth } from 'firebase/auth';
+import { signOut, getAuth } from 'firebase/auth';
 import Link from 'next/link';
 
 export default function Home() {
@@ -23,7 +22,6 @@ export default function Home() {
   const { user } = useUser();
   const db = useFirestore();
 
-  // Fetch history if logged in
   const historyQuery = useMemo(() => {
     if (!db || !user) return null;
     return query(
@@ -58,7 +56,6 @@ export default function Home() {
         const enhanced = result.enhancedPrompt || '';
         setEnhancedPrompt(enhanced);
         
-        // Save to history if logged in
         if (user && db) {
           addDoc(collection(db, 'users', user.uid, 'history'), {
             originalPrompt: prompt,
@@ -155,7 +152,7 @@ export default function Home() {
                 onChange={(e) => setPrompt(e.target.value)}
                 onKeyDown={handleKeyDown}
                 rows={5}
-                className="resize-none border-primary/10 bg-muted/30 focus-visible:ring-primary/50"
+                className="resize-none border-primary/10 bg-muted/40 focus-visible:ring-primary/50 text-white"
                 disabled={isLoading}
               />
               <Button type="submit" className="w-full shadow-lg shadow-primary/10" disabled={isLoading}>
@@ -183,7 +180,7 @@ export default function Home() {
                   readOnly
                   rows={15}
                   className={cn(
-                    'resize-none border-accent/30 bg-black/40 text-foreground/90 leading-relaxed font-body',
+                    'resize-none border-accent/40 bg-black/60 text-foreground leading-relaxed font-body border-2',
                     !isLoading && 'textarea-output'
                   )}
                   placeholder="Your enhanced prompt will appear here..."
@@ -219,7 +216,7 @@ export default function Home() {
               </div>
             </CardHeader>
             <CardContent className="space-y-4">
-              {historyItems.map((item: any) => (
+              {historyItems.map((item) => (
                 <div 
                   key={item.id} 
                   className="group cursor-pointer rounded-md border border-muted p-3 hover:bg-muted/50 transition-colors"
@@ -232,7 +229,7 @@ export default function Home() {
                     {item.originalPrompt}
                   </p>
                   <p className="mt-1 text-xs text-muted-foreground/50">
-                    {item.createdAt?.toDate().toLocaleString()}
+                    {item.createdAt?.toDate?.() ? item.createdAt.toDate().toLocaleString() : 'Just now'}
                   </p>
                 </div>
               ))}

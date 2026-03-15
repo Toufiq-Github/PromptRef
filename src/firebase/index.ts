@@ -22,7 +22,6 @@ export function initializeFirebase(): {
   return { app, auth, db };
 }
 
-// Re-export specific hook versions for easier use
 import { useAuth, useFirestore } from './provider';
 import { useUser as useUserHook } from './auth/use-user';
 

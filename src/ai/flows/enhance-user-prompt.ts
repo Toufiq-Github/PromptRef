@@ -58,7 +58,7 @@ Describe the expected output format and style.
 
 **Rules for Enhancement:**
 - Every section (Role, Background, Workflow, Output) MUST start on a NEW line.
-- You MUST insert a BLANK LINE between each section.
+- You MUST insert a BLANK LINE between each section to ensure maximum readability.
 - Preserve the user's original intent.
 - Ensure the output is professional and neutral.
 - Do NOT answer the prompt yourself. Output ONLY the rewritten prompt.`,

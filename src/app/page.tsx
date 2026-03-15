@@ -1,17 +1,13 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import { Copy, Wand2, Loader2, Check, History, LogOut, LogIn } from 'lucide-react';
+import { useState } from 'react';
+import { Copy, Wand2, Loader2, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { handleEnhancePrompt } from './actions';
 import { cn } from '@/lib/utils';
-import { useUser, useFirestore, useCollection } from '@/firebase';
-import { collection, addDoc, serverTimestamp, query, orderBy, limit } from 'firebase/firestore';
-import { signOut, getAuth } from 'firebase/auth';
-import Link from 'next/link';
 
 export default function Home() {
   const [prompt, setPrompt] = useState('');
@@ -19,19 +15,6 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const { toast } = useToast();
-  const { user } = useUser();
-  const db = useFirestore();
-
-  const historyQuery = useMemo(() => {
-    if (!db || !user) return null;
-    return query(
-      collection(db, 'users', user.uid, 'history'),
-      orderBy('createdAt', 'desc'),
-      limit(5)
-    );
-  }, [db, user]);
-
-  const { data: historyItems } = useCollection(historyQuery);
 
   const performEnhancement = async () => {
     if (!prompt.trim()) {
@@ -53,16 +36,7 @@ export default function Home() {
           variant: 'destructive',
         });
       } else {
-        const enhanced = result.enhancedPrompt || '';
-        setEnhancedPrompt(enhanced);
-        
-        if (user && db) {
-          addDoc(collection(db, 'users', user.uid, 'history'), {
-            originalPrompt: prompt,
-            enhancedPrompt: enhanced,
-            createdAt: serverTimestamp(),
-          });
-        }
+        setEnhancedPrompt(result.enhancedPrompt || '');
       }
     } catch (error) {
       toast({
@@ -101,53 +75,27 @@ export default function Home() {
     }
   };
 
-  const handleSignOut = () => {
-    const auth = getAuth();
-    signOut(auth);
-  };
-
   return (
     <main className="flex min-h-screen w-full flex-col items-center bg-background p-4 sm:p-6 md:p-8">
       <div className="w-full max-w-2xl space-y-8">
-        <header className="flex items-center justify-between">
-          <div className="flex flex-col">
-            <h1 className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl">
-              PromptRefiner
-            </h1>
-            <p className="mt-2 text-muted-foreground">
-              Refined. Precise. Powerful.
-            </p>
-          </div>
-          <div className="flex items-center gap-2">
-            {user ? (
-              <div className="flex items-center gap-4">
-                <span className="hidden text-sm text-muted-foreground md:inline-block">
-                  {user.email}
-                </span>
-                <Button variant="ghost" size="icon" onClick={handleSignOut}>
-                  <LogOut className="h-5 w-5" />
-                </Button>
-              </div>
-            ) : (
-              <Link href="/login">
-                <Button variant="outline" size="sm">
-                  <LogIn className="mr-2 h-4 w-4" />
-                  Sign In
-                </Button>
-              </Link>
-            )}
-          </div>
+        <header className="flex flex-col items-center text-center">
+          <h1 className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl">
+            PromptRefiner
+          </h1>
+          <p className="mt-2 text-muted-foreground">
+            Refined. Precise. Powerful.
+          </p>
         </header>
 
         <Card className="w-full border-primary/20 bg-card/50">
           <CardHeader>
             <CardTitle className="text-xl font-semibold">Input Prompt</CardTitle>
-            <CardDescription>Press Enter to enhance instantly.</CardDescription>
+            <CardDescription>Describe your idea and press Enter to enhance.</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <Textarea
-                placeholder="Describe your idea here..."
+                placeholder="Type your prompt here..."
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 onKeyDown={handleKeyDown}
@@ -203,46 +151,6 @@ export default function Home() {
               </div>
             </CardContent>
           </Card>
-        )}
-
-        {user && historyItems && historyItems.length > 0 && (
-          <Card className="w-full border-muted-foreground/10 bg-card/20">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-              <div className="space-y-1">
-                <CardTitle className="text-lg font-medium flex items-center">
-                  <History className="mr-2 h-4 w-4" />
-                  Recent History
-                </CardTitle>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {historyItems.map((item) => (
-                <div 
-                  key={item.id} 
-                  className="group cursor-pointer rounded-md border border-muted p-3 hover:bg-muted/50 transition-colors"
-                  onClick={() => {
-                    setPrompt(item.originalPrompt);
-                    setEnhancedPrompt(item.enhancedPrompt);
-                  }}
-                >
-                  <p className="line-clamp-1 text-sm text-muted-foreground">
-                    {item.originalPrompt}
-                  </p>
-                  <p className="mt-1 text-xs text-muted-foreground/50">
-                    {item.createdAt?.toDate?.() ? item.createdAt.toDate().toLocaleString() : 'Just now'}
-                  </p>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-        )}
-
-        {!user && (
-          <div className="text-center py-4">
-            <p className="text-sm text-muted-foreground">
-              <Link href="/signup" className="text-primary hover:underline">Create an account</Link> to save your history.
-            </p>
-          </div>
         )}
       </div>
     </main>

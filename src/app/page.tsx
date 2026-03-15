@@ -107,7 +107,7 @@ export default function Home() {
                     onChange={(e) => setPrompt(e.target.value)}
                     onKeyDown={handleKeyDown}
                     rows={8}
-                    className="relative resize-none border-primary/10 bg-black/60 focus-visible:ring-1 focus-visible:ring-primary/20 focus-visible:border-primary/30 text-foreground text-lg p-8 transition-all duration-500 min-h-[250px] font-light leading-relaxed placeholder:text-primary/20"
+                    className="relative resize-none border-primary/10 bg-black/60 focus-visible:ring-1 focus-visible:ring-primary/20 focus-visible:border-primary/30 text-foreground text-lg p-8 transition-all duration-500 min-h-[250px] font-light leading-relaxed placeholder:text-primary/50"
                     disabled={isLoading}
                   />
                 </div>

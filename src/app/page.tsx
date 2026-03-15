@@ -102,12 +102,12 @@ export default function Home() {
                 <div className="relative group">
                   <div className="absolute -inset-px bg-gradient-to-b from-primary/20 to-transparent rounded-lg opacity-0 group-focus-within:opacity-100 transition duration-700 pointer-events-none"></div>
                   <Textarea
-                    placeholder=""
+                    placeholder="Input Prompt"
                     value={prompt}
                     onChange={(e) => setPrompt(e.target.value)}
                     onKeyDown={handleKeyDown}
                     rows={8}
-                    className="relative resize-none border-primary/10 bg-black/60 focus-visible:ring-1 focus-visible:ring-primary/20 focus-visible:border-primary/30 text-foreground text-lg p-8 transition-all duration-500 min-h-[250px] font-light leading-relaxed"
+                    className="relative resize-none border-primary/10 bg-black/60 focus-visible:ring-1 focus-visible:ring-primary/20 focus-visible:border-primary/30 text-foreground text-lg p-8 transition-all duration-500 min-h-[250px] font-light leading-relaxed placeholder:text-primary/20"
                     disabled={isLoading}
                   />
                 </div>

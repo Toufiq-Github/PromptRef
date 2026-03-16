@@ -109,6 +109,7 @@ export default function Home() {
             <CardContent className="p-6 sm:p-10">
               <form onSubmit={handleSubmit} className="space-y-8">
                 <div className="relative group">
+                  {/* Subtle 3D lighter border effect */}
                   <div className="absolute -inset-px bg-gradient-to-b from-primary/30 to-transparent rounded-lg opacity-20 group-focus-within:opacity-100 transition duration-700 pointer-events-none"></div>
                   <Textarea
                     placeholder="Input Prompt"
@@ -186,6 +187,14 @@ export default function Home() {
                       >
                         {isCopied ? <Check className="mr-2 h-4 w-4" /> : <Copy className="mr-2 h-4 w-4" />}
                         {isCopied ? 'Copied' : 'Copy Result'}
+                      </Button>
+                      <Button
+                        variant="default"
+                        className="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-14 uppercase tracking-[0.2em] text-xs shadow-xl transition-transform active:scale-95"
+                        onClick={handleOpenChatGPT}
+                      >
+                        <ExternalLink className="mr-2 h-4 w-4" />
+                        Open in ChatGPT
                       </Button>
                     </div>
                   )}

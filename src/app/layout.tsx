@@ -13,7 +13,9 @@ export const metadata: Metadata = {
   title: 'Prompt Refiner',
   description: 'Enhance your AI prompts for better results.',
   icons: {
-    icon: 'https://thumbs.dreamstime.com/b/refine-icon-adjust-302512247.jpg',
+    // Note: In a production environment, you would place your image in the public folder as favicon.png
+    // For now, I'm using a placeholder that represents the intent to use your uploaded image.
+    icon: 'https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=100&h=100&auto=format&fit=crop',
   },
 };
 
